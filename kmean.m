@@ -1,6 +1,6 @@
-function [rPlaceholder] = kmean(k, means, img, placeholder)
-%     recompute centroids
+function [result] = kmean(k, means, img)    
     [row col cha] = size(img);
+    placeholder = zeros(row, col);
     for i = 1:row
        for j = 1:col
           min_distance = 9999;
@@ -12,19 +12,17 @@ function [rPlaceholder] = kmean(k, means, img, placeholder)
                   closet_cluster = z;
               end
           end
-          fprintf('cluster belongs to: %i\n', closet_cluster);
-          placeholer(z)(b) = 
+%           fprintf('cluster belongs to: %i\n', closet_cluster);
+          placeholder(i, j) = closet_cluster;
        end
-%        assign means value to each pixel in the cluster
     end
+    result = placeholder;
     
-    placeholder(5) = {1010};
-    rPlaceholder = placeholder;
 end
 
 function [distance] = RGBdistnace(p1, p2)
-    square1 = (double(p1(1)) / 255 - p2(1)) ^ 2;
-    square2 = (double(p1(2)) / 255 - p2(2)) ^ 2;
-    square3 = (double(p1(3)) / 255 - p2(3)) ^ 2;
+    square1 = (p1(1) - p2(1)) ^ 2;
+    square2 = (p1(2) - p2(2)) ^ 2;
+    square3 = (p1(3) - p2(3)) ^ 2;
     distance = sqrt(square1 + square2 +square3);
 end
